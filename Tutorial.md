@@ -43,8 +43,15 @@ mv metadata_q2_workshop.txt metadata.txt
 ```
 
 Visualize the metadata file:
+(Something weird with copy-paste into OnDemand CLI, seems to be copying more info than what is there)
 ```
 qiime metadata tabulate \
 	--m-input-file metadata.txt \
 	--o-visualization metadata.qzv
+```
+
+```
+qiime metadata tabulate \  
+--m-input-file metadata.txt \  
+--o-visualization metadata.qzv
 ```
