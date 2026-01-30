@@ -20,24 +20,23 @@
               "icon": "lucide-file",
               "title": "Test"
             }
-          }
-        ]
-      },
-      {
-        "id": "352152418c097644",
-        "type": "tabs",
-        "children": [
+          },
           {
-            "id": "9ebef8183adf32d0",
+            "id": "3463382abeedf5a3",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "Tutorial.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Tutorial"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -198,13 +197,14 @@
       "bases:Create new base": false
     }
   },
-  "active": "d87bd6bcac61b618",
+  "active": "3463382abeedf5a3",
   "lastOpenFiles": [
+    "Test.md",
+    "Tutorial.md",
     "04_extra_credit",
     "03_paper_discussions",
     "02_class_project",
     "01_homework",
-    "Test.md",
     "Welcome.md"
   ]
 }
