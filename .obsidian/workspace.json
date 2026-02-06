@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tutorial.md",
+                "file": "example_worflow.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tutorial"
+              "title": "example_worflow"
             }
           }
         ]
@@ -184,8 +184,10 @@
   },
   "active": "3463382abeedf5a3",
   "lastOpenFiles": [
-    "Test.md",
+    "Example_Obsidian_Note.md",
     "Tutorial.md",
+    "example_worflow.md",
+    "Test.md",
     "04_extra_credit",
     "03_paper_discussions",
     "02_class_project",
