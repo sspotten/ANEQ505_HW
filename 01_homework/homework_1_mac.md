@@ -125,14 +125,31 @@ qiime demux summarize \
 Fill in the blank to denoise your samples based on what you think should be trimmed (from the front of the reads) or truncated (from the ends of the reads) based on the demux_cow.qzv file. You can run this in the terminal or as a job.
 
 ```
-cd ../dada2
+#!/bin/bash
+#SBATCH --job-name=denoise
+#SBATCH --nodes=1
+#SBATCH --ntasks=12
+#SBATCH --partition=amilan
+#SBATCH --time=02:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=sarah.spotten@colostate.edu
 
+# Activate QIIME2
+module purge
+module load qiime2/2024.10_amplicon
+
+# Change directory
+cd /scratch/alpine/$USER/aneq/cow/dada2
+
+# Denoise with DADA2
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs ../demux/demux_cow.qza \
---p-trim-left-f NUMBER \
---p-trim-left-r NUMBER \
---p-trunc-len-f NUMBER \
---p-trunc-len-r NUMBER \
+--p-trim-left-f 0 \
+--p-trim-left-r 0 \
+--p-trunc-len-f 0 \
+--p-trunc-len-r 0 \
 --p-n-threads 6 \
 --o-representative-sequences cow_seqs_dada2.qza \
 --o-denoising-stats cow_dada2_stats.qza \
@@ -141,16 +158,16 @@ qiime dada2 denoise-paired \
 #Visualize the denoising results:
 qiime metadata tabulate \
 --m-input-file cow_dada2_stats.qza \
---o-visualization YOUR_OUTPUT_FILENAME_HERE.qzv
+--o-visualization cow_dada2_stats.qzv
 
 qiime feature-table summarize \
 --i-table cow_table_dada2.qza \
 --m-sample-metadata-file ../metadata/cow_metadata.txt \
---o-visualization YOUR_OUTPUT_FILENAME_HERE.qzv
+--o-visualization cow_table_dada2.qzv
 
 qiime feature-table tabulate-seqs \
 --i-data cow_seqs_dada2.qza \
---o-visualization YOUR_OUTPUT_FILENAME_HERE.qzv
+--o-visualization cow_seqs_dada2.qzv
 ```
 
 	
@@ -165,7 +182,7 @@ Briefly **describe** the key information from each denoising output file:
 3. What is the maximum length of all your sequences?
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
 5. Why did you chose to trim or truncate where you did?
-	1. I chose NOT to trim my sequences from the 5' end because the sequence quality Q-scores were higher than 30 at the beginning of both the forward and reverse read. The sequence quality for both forward and reverse reads looks quite good throughout, actually, so I also chose NOT to truncate the 3' end. My rationale comes from previous experience with metabarcoding on the MiSeq platform, and is as follows: While there is a dip in quality at the very last base of the reverse read (position 251), this has to do with the fact that this position doesn't have the benefit of having a position following it from which to correct for phasing errors on the MiSeq (which always reads one extra base in each direction for this calculation). The problem with setting the DADA2 truncate parameters to 250 to chop off that last poor-quality base, however, is that the truncate parameter does TWO things (side note, this is bad software design): it both truncates the read at the given length AND discards any reads shorter than the given length (I learned this the hard way!)
+	1. I chose NOT to trim my sequences from the 5' end because the sequence quality Q-scores were higher than 30 at the beginning of both the forward and reverse read. The sequence quality for both forward and reverse reads actually looks quite good throughout, so I also chose NOT to truncate the 3' end. My rationale comes from previous experience with metabarcoding on the MiSeq platform, and is as follows (and is of course open to being updated): While there is a dip in quality at the very last base of the reverse read (position 251), this has to do with the fact that this position doesn't have the benefit of having a position following it from which to correct for phasing errors on the MiSeq (which always reads one extra base in each direction for this calculation). The problem with setting the DADA2 truncate parameters to chop off that last poor-quality base, however, is that the truncate parameter does TWO things (side note: this seems like questionable software design): it both truncates the read at the given length AND discards any reads shorter than the given length (and I learned this the hard way!). If we are concerned about recovering as much useful data as possible, any paired-end read that may have had a read shorter than the cutoff in one direction will be lost from the dataset entirely.
 
 **To submit your homework from this document:**
 write all of your commands here, then use command+P (for mac) or control+P (for windows) and search Git: commit. click it. then search for Git: Push and click it. go to your github online to check that it pushed correctly. we will check your github for homework credit. 
