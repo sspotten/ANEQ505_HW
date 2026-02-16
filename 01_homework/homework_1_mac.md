@@ -95,7 +95,7 @@ module purge
 module load qiime2/2024.10_amplicon
 
 #change the following line if your file path looks different
-cd /scratch/alpine/$USER/cow/demux
+cd /scratch/alpine/$USER/aneq505/cow/demux
 
 #Below is the command you will run to demultiplex the samples.
 
@@ -165,6 +165,7 @@ Briefly **describe** the key information from each denoising output file:
 3. What is the maximum length of all your sequences?
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
 5. Why did you chose to trim or truncate where you did?
+	1. I chose NOT to trim my sequences from the 5' end because the sequence quality Q-scores were higher than 30 at the beginning of both the forward and reverse read. The sequence quality for both forward and reverse reads looks quite good throughout, actually, so I also chose NOT to truncate the 3' end. While there is a dip in quality at the very last base of the reverse read (position 251), this has to do with phase-shift
 
 **To submit your homework from this document:**
 write all of your commands here, then use command+P (for mac) or control+P (for windows) and search Git: commit. click it. then search for Git: Push and click it. go to your github online to check that it pushed correctly. we will check your github for homework credit. 
