@@ -141,7 +141,7 @@ module purge
 module load qiime2/2024.10_amplicon
 
 # Change directory
-cd /scratch/alpine/$USER/aneq/cow/dada2
+cd /scratch/alpine/$USER/aneq505/cow/dada2
 
 # Denoise with DADA2
 qiime dada2 denoise-paired \
@@ -178,6 +178,7 @@ Briefly **describe** the key information from each denoising output file:
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
+	1. The median
 2. How long are the reads?
 3. What is the maximum length of all your sequences?
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
