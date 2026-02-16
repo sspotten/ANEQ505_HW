@@ -178,9 +178,11 @@ Briefly **describe** the key information from each denoising output file:
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
-	1. The median
+	1. The median number of reads per sample is 8,830.
 2. How long are the reads?
+	1. The reads are 251 bases long.
 3. What is the maximum length of all your sequences?
+	1. The maximum sequence length in the ASV dataset is 427.
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
 5. Why did you chose to trim or truncate where you did?
 	1. I chose NOT to trim my sequences from the 5' end because the sequence quality Q-scores were higher than 30 at the beginning of both the forward and reverse read. The sequence quality for both forward and reverse reads actually looks quite good throughout, so I also chose NOT to truncate the 3' end. My rationale comes from previous experience with metabarcoding on the MiSeq platform, and is as follows (and is of course open to being updated): While there is a dip in quality at the very last base of the reverse read (position 251), this has to do with the fact that this position doesn't have the benefit of having a position following it from which to correct for phasing errors on the MiSeq (which always reads one extra base in each direction for this calculation). The problem with setting the DADA2 truncate parameters to chop off that last poor-quality base, however, is that the truncate parameter does TWO things (side note: this seems like questionable software design): it both truncates the read at the given length AND discards any reads shorter than the given length (and I learned this the hard way!). If we are concerned about recovering as much useful data as possible, any paired-end read that may have had a read shorter than the cutoff in one direction will be lost from the dataset entirely.
