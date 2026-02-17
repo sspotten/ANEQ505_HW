@@ -173,7 +173,9 @@ qiime feature-table tabulate-seqs \
 	
 Briefly **describe** the key information from each denoising output file:
 1. Representative Sequences
+	1. Using the above denoising parameters, I got an ASV count of 4,360 in the dataset. The minimum length is 251, and the maximum length is 427, but the seven-number summary shows that the vast majority of ASVs are the expected length for 16S V4 of 252-254 nts.
 2. Denoising Stats
+	1. Most samples were in the range of 65-85% of reads passing filters, denoising, merging, and non-chimeric, which looks pretty good. I would have liked to have seen some higher retention percentages on some of them, but not knowing
 3. Denoised Table
 
 **Answer the following questions:**  
@@ -182,11 +184,11 @@ Briefly **describe** the key information from each denoising output file:
 2. How long are the reads?
 	1. The reads are 251 bases long.
 3. What is the maximum length of all your sequences?
-	1. The maximum sequence length in the ASV dataset is 427.
+	1. The maximum sequence length in the ASV dataset is 427. BLAST against GenBank identifies this as a fungus in the genus Mucor. 
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
-	1. The sample that lost the highest percent of reads was 2019.3.14.cow.oral.20. This sample only had 8.39% of reads passing filters, denoising, and merging, for a loss of 91.61% of reads. This sample started with a low number of reads (1,906) to begin with, which makes me think that this sample mostly failed to amplify any signal and what was left was merely PCR errors.
+	1. The sample that lost the highest percent of reads was 2019.3.14.cow.oral.20. This sample only had 8.39% of reads passing filters, denoising, merging, and non-chimeric, for a loss of 91.61% of reads. This sample started with a low number of reads (1,906) to begin with, which makes me think that this sample mostly failed to amplify biological signal and what reads were left were largely PCR errors.
 5. Why did you chose to trim or truncate where you did?
-	1. I chose NOT to trim my sequences from the 5' end because the sequence quality Q-scores were higher than 30 at the beginning of both the forward and reverse read. The sequence quality for both forward and reverse reads actually looks quite good throughout, so I also chose NOT to truncate the 3' end. My rationale comes from previous experience with metabarcoding on the MiSeq platform, and is as follows (and is of course open to being updated): While there is a dip in quality at the very last base of the reverse read (position 251), this has to do with the fact that this position doesn't have the benefit of having a position following it from which to correct for phasing errors on the MiSeq (which always reads one extra base in each direction for this calculation). The problem with setting the DADA2 truncate parameters to chop off that last poor-quality base, however, is that the truncate parameter does TWO things (side note: this seems like questionable software design): it both truncates the read at the given length AND discards any reads shorter than the given length (and I learned this the hard way!). If we are concerned about recovering as much useful data as possible, any paired-end read that may have had a read shorter than the cutoff in one direction will be lost from the dataset entirely.
+	1. I chose NOT to trim my sequences from the 5' end because the sequence quality Q-scores were higher than 30 at the beginning of both the forward and reverse read. The sequence quality for both forward and reverse reads actually looks quite good throughout, so I also chose NOT to truncate the 3' end. My rationale comes from previous experience with metabarcoding on the MiSeq platform, and is as follows (of course, please correct me if I am off track): While there is a dip in quality at the very last base of the reverse read (position 251), this has to do with the fact that this position doesn't have the benefit of having a position following it from which to correct for phasing errors on the MiSeq (which always reads one extra base in each direction for this calculation). The problem with setting the DADA2 truncate parameters to chop off that last poor-quality base, however, is that the truncate parameter does TWO things: it both truncates the read at the given length AND discards any reads shorter than the given length (and I learned this the hard way!). If we are concerned about recovering as much useful data as possible, any paired-end read that may have had a read shorter than the cutoff in one direction will be lost from the dataset entirely.
 
 **To submit your homework from this document:**
 write all of your commands here, then use command+P (for mac) or control+P (for windows) and search Git: commit. click it. then search for Git: Push and click it. go to your github online to check that it pushed correctly. we will check your github for homework credit. 
