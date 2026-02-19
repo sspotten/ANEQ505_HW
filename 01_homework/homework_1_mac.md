@@ -148,8 +148,8 @@ qiime dada2 denoise-paired \
 --i-demultiplexed-seqs ../demux/demux_cow.qza \
 --p-trim-left-f 0 \
 --p-trim-left-r 0 \
---p-trunc-len-f 0 \
---p-trunc-len-r 0 \
+--p-trunc-len-f 250 \
+--p-trunc-len-r 250 \
 --p-n-threads 6 \
 --o-representative-sequences cow_seqs_dada2.qza \
 --o-denoising-stats cow_dada2_stats.qza \
@@ -170,24 +170,29 @@ qiime feature-table tabulate-seqs \
 --o-visualization cow_seqs_dada2.qzv
 ```
 
+Run denoising job:
+```
+sbatch denoise.sh
+```
+
 	
 Briefly **describe** the key information from each denoising output file:
 1. Representative Sequences
-	1. Using the above denoising parameters, I got an ASV count of 4,360 in the dataset. The minimum length is 251, and the maximum length is 427, but the seven-number summary shows that the vast majority of ASVs are the expected length for 16S V4 of 252-254 nts.
+	1. Using the above denoising parameters, I got an ASV count of 4,653 in the dataset. The minimum sequence length is 250, and the maximum length is 427. The seven-number summary of sequence lengths shows that the vast majority of ASVs are the expected length for 16S V4 of 252-254 nts.
 2. Denoising Stats
-	1. Most samples were in the range of 65-85% of reads passing filters, denoising, merging, and non-chimeric, which looks pretty good. However, even some samples that had high percentages passing all checkpoints still have low read depth (on the order of 10^3 reads) and thus may need to be dropped because they will not be very biologically informative in our downstream analyses.
+	1. Most samples were in the range of 65-85% of reads passing filters, denoising, merging, and non-chimeric, which looks pretty good. However, even some non-extraction-control samples that had high percentages passing all checkpoints still have low read depth (on the order of 10^2 to the low 10^3 reads) and thus may need to be dropped because they will not be very biologically informative in our downstream analyses.
 3. Denoised Table
-	1. The median number of reads per sample is 8,830 and the interquartile range is 3,470-17,806.5 reads. Most of our samples should have enough read depth to proceed with analysis. The most highly represented feature/ASV is 13a6b08f7caf6964a9fcb73999d152eb, with a frequency of 103,645 across 84 samples. A vast number of ASVs are represented at a frequency of <100 and found in only one or a few samples, which we may need to consider excluding from analysis.
+	1. The median number of reads per sample is 8,854 and the interquartile range is 3,494-17,969.5 reads. Most of our samples should have enough read depth to proceed with analysis. The most highly represented feature/ASV is 13a6b08f7caf6964a9fcb73999d152eb, with a frequency of 104,080 across 85 samples. A vast number of ASVs are represented at a frequency of <100 and found in only one or a few samples, and we may need to consider excluding these from analysis.
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
-	1. The mean number of reads per sample is 10,932.4 (median 8,830).
+	1. The mean number of reads per sample is 11,115.7 (median 8,854).
 2. How long are the reads?
-	1. The reads are 251 bases long.
+	1. The raw reads (as they came off the MiSeq) are 251 bases long. The MiSeq is always set to read one extra base in both directions for correcting phasing errors (where the sequencing-by-synthesis gets off by one or more bases in some proportion of fragments in a cluster in each cycle, increasing the noise for that cluster as sequencing goes on, which is the source of the Q-score drop toward the 3' end of the reads).
 3. What is the maximum length of all your sequences?
-	1. The maximum sequence length in the ASV dataset is 427. BLAST against GenBank identifies this as a fungus in the genus Mucor. 
+	1. The maximum sequence length in the ASV dataset is 427. BLAST against GenBank identifies this as a fungus in the genus Mucor (i.e. an off-target taxon). 
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
-	1. The sample that lost the highest percent of reads was 2019.3.14.cow.oral.20. This sample only had 8.39% of reads passing filters, denoising, merging, and non-chimeric, for a loss of 91.61% of reads. This sample started with a low number of reads (1,906) to begin with, which makes me think that this sample mostly failed to amplify biological signal and what reads were left were largely PCR errors, which got filtered out.
+	1. The sample that lost the highest percent of reads was 2019.3.14.cow.oral.20. This sample only had 8.76% of reads passing filters, denoising, merging, and non-chimeric, for a loss of 91.24% of reads. This sample started with a low number of reads (1,906) to begin with, which makes me think that this sample mostly failed to amplify biological signal and what reads *were* left were largely PCR errors, which got filtered out. After denoising, 2019.3.14.cow.oral.20 has only 167 reads and will likely need to be excluded from downstream analysis because its sequencing depth is too shallow.
 5. Why did you chose to trim or truncate where you did?
 	1. I chose NOT to trim my sequences from the 5' end because the sequence quality Q-scores were higher than 30 at the beginning of both the forward and reverse read. The sequence quality for both forward and reverse reads actually looks quite good throughout, so I also chose NOT to truncate the 3' end. My rationale comes from previous experience with metabarcoding on the MiSeq platform, and is as follows (please correct me if I'm off track): While there is a dip in quality at the very last base of the reverse read (position 251), this has to do with the fact that this position doesn't have the benefit of having a position following it from which to correct for phasing errors on the MiSeq (which one always sets to read one extra base in each direction for this calculation). The problem with setting the DADA2 truncate parameters to chop off that last poor-quality base, however, is that the truncate parameter does TWO things: it both truncates the read at the given length AND discards any reads shorter than the given length. If we are concerned about recovering as much useful data as possible, any paired-end read that may have had a read shorter than the cutoff in one direction will be lost from the dataset entirely at this early point.
 
