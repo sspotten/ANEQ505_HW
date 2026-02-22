@@ -182,7 +182,7 @@ Briefly **describe** the key information from each denoising output file:
 2. Denoising Stats
 	1. Most samples were in the range of 65-85% of reads passing filters, denoising, merging, and non-chimeric, which looks pretty good. However, even some non-extraction-control samples that had high percentages passing all checkpoints still have low read depth (on the order of 10^2 to the low 10^3 reads) and thus may need to be dropped because they will not be very biologically informative in our downstream analyses.
 3. Denoised Table
-	1. The median number of reads per sample is 8,854 and the interquartile range is 3,494-17,969.5 reads. Most of our samples should have enough read depth to proceed with analysis. The most highly represented feature/ASV is 13a6b08f7caf6964a9fcb73999d152eb, with a frequency of 104,080 across 85 samples. A vast number of ASVs are represented at a frequency of <100 and found in only one or a few samples, and we may need to consider excluding these from analysis.
+	1. The median number of reads per sample is 8,854 and the interquartile range is 3,494-17,969.5 reads. Most of our samples should have enough read depth to proceed with analysis. The most highly represented feature/ASV is d15bc449222795a9ff230013aa633686, with a frequency of 104,080 across 85 samples. A vast number of ASVs are represented at a frequency of <100 and found in only one or a few samples, and we may need to consider excluding these from analysis.
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
