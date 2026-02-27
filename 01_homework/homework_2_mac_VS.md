@@ -20,7 +20,6 @@ Load qiime2 in a terminal session after you go into the taxonomy folder
 # Insert the two commands to activate qiime2
 module purge
 module load qiime2/2024.10_amplicon
-
 ```
 
 ### Remove long (300+ base pair) amplicons from the representative sequences file and the feature table
@@ -133,7 +132,7 @@ Create a job script to run the phylogenetic tree building. Remember you must sta
 
 Go to OnDemand and create a new text file for your job script
 ```
-nano <YourJobName.sh>
+nano tree.sh
 ```
 
 ```
@@ -144,13 +143,14 @@ nano <YourJobName.sh>
 #SBATCH --partition=amilan
 #SBATCH --time=04:00:00
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=YOUR_EMAIL_HERE@colostate.edu
+#SBATCH --mail-user=sarah.spotten@colostate.edu
 #SBATCH --output=slurm-%j.out
 #SBATCH --qos=normal
 
 #Activate qiime
 #Insert the two commands you need to load qiime2
-
+module purge
+module load qiime2/2024.10_amplicon
 
 #Get reference
 wget --no-check-certificate -P ../tree https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-reference.qza
@@ -167,7 +167,7 @@ qiime fragment-insertion sepp \
 - submit the job from the terminal
 ```
 #submit the job
-sbatch YourJobName.sh
+sbatch tree.sh
 ```
 We will use this file in the next homework!
 
