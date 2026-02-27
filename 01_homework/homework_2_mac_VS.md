@@ -102,14 +102,14 @@ qiime taxa barplot \
 
 **Question 1**: Attach a picture of your taxa bar plot, organized by cow sampling location (body_site) at the level 7 taxonomic level. What general trends do you notice?
 ![[Pasted image 20260227123606.png]]
-The fecal samples mostly look similar to each other in community composition, but there is more variability between samples in the nasal and oral samples. The control samples have fewer total taxa, which makes sense.
+The fecal samples mostly look similar to each other in community composition, but there is more variability between samples in the nasal and oral samples. The skin and udder samples also look similar to each other. The control samples have fewer total taxa, which makes sense.
 
 **_Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples?
 The top 2 most abundant bacterial classes in the fecal samples are Bacteroidia and Clostridia.
 
 **_Question 3**: What highly abundant ASV is shared between both the udder and skin samples?
 ```
-# Join feature table with taxonomy
+# Join feature table with taxonomy to get ASV-level info
 # Run from within cow folder
 
 qiime feature-table transpose \
@@ -122,9 +122,10 @@ qiime metadata tabulate \
 --m-input-file dada2/table_nomitochloro_gg2_filtered300_transposed.qza \
 --o-visualization dada2/asv_info.qzv
 ```
-The ASV d60ea32ec043b8cb552df7c488cae3c7, identified as 
+The ASV d60ea32ec043b8cb552df7c488cae3c7, identified as *Faecousia sp000434635* in the Class Clostridia is the most highly-abundant ASV that is shared between both the udder and skin samples.
 
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
+
 
 **Question 5**: do all samples contain archaea as well?
 
