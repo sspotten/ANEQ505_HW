@@ -122,6 +122,7 @@ qiime metadata tabulate \
 --m-input-file dada2/table_nomitochloro_gg2_filtered300_transposed.qza \
 --o-visualization dada2/asv_info.qzv
 ```
+The ASV d60ea32ec043b8cb552df7c488cae3c7, identified as 
 
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
 
