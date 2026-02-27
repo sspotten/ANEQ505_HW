@@ -108,7 +108,20 @@ The fecal samples mostly look similar to each other in community composition, bu
 The top 2 most abundant bacterial classes in the fecal samples are Bacteroidia and Clostridia.
 
 **_Question 3**: What highly abundant ASV is shared between both the udder and skin samples?
+```
+# Join feature table with taxonomy
+# Run from within cow folder
 
+qiime feature-table transpose \
+--i-table dada2/table_nomitochloro_gg2_filtered300.qza \
+--o-transposed-feature-table dada2/table_nomitochloro_gg2_filtered300_transposed.qza
+
+qiime metadata tabulate \
+--m-input-file dada2/cow_seqs_dada2_filtered300.qza \
+--m-input-file taxonomy/taxonomy_gg2_filtered.qza \
+--m-input-file dada2/table_nomitochloro_gg2_filtered300_transposed.qza \
+--o-visualization dada2/asv_info.qzv
+```
 
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
 
