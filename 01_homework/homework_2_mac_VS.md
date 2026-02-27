@@ -136,13 +136,16 @@ We filter out sp004296775 because its taxonomic status is uncertain. It was prev
 **Question 7**: what is the difference between these two flags? 
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
+The --p-exclude flag is telling the q2-taxa filter-table command to filter out any records with these strings of text included in them. In contrast, the --p-include flag is telling the same command that we want to include only records which have an identification down to taxonomic class. The latter flag isn't doing anything as far as I can tell, because every taxonomic label from the GreenGenes database should have c__ in it, even if the class information is empty.
 
 **Question 8**: do the positive controls look the same as each other? Yes or No?
+Yes, the two positive control samples look similar to each other in community composition.
 
-
-**Question 9**: Do the negative/extraction controls (Samples labeled as EC), look like the positive controls? Yes or no? 
+**Question 9**: Do the negative/extraction controls (Samples labeled as EC), look like the positive controls? Yes or no?
+For the most part, no, the negative/extraction controls do not look like the positive controls, although there are a few of them that look suspiciously similar to the positive controls.
 
 **Question 10**: do the negative/extraction controls (Samples labeled as EC), look like the real samples? Yes or no?
+With one exception (or maybe two: EC3.4 and EC1.3), compared to the real samples the negative/extraction controls have far fewer taxa in them and thus do not look like real samples.
 
 ## Phylogenetic tree ~={red}(1point)=~
 
