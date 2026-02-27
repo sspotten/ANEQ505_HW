@@ -128,14 +128,17 @@ The ASV d60ea32ec043b8cb552df7c488cae3c7, identified as *Faecousia sp000434635* 
 
 
 **Question 5**: do all samples contain archaea as well?
+Not all of the samples contain Archaea, but the vast majority of them do. Archaea seem to be less abundant in oral and nasal samples. Archaea are absent from the extraction blanks and the positive controls.
 
 **Question 6**: why do we filter out sp004296775?
+We filter out sp004296775 because its taxonomic status is uncertain. It was previously identified as a bacterium but it may in fact be chloroplast-derived.
 
 **Question 7**: what is the difference between these two flags? 
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
 
 **Question 8**: do the positive controls look the same as each other? Yes or No?
+
 
 **Question 9**: Do the negative/extraction controls (Samples labeled as EC), look like the positive controls? Yes or no? 
 
