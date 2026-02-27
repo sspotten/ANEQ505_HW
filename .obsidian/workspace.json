@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tutorial.md",
+                "file": "01_homework/homework_2_mac_VS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tutorial"
+              "title": "homework_2_mac_VS"
             }
           }
         ]
@@ -182,10 +182,11 @@
       "bases:Create new base": false
     }
   },
-  "active": "e6254aaa8f0e5928",
+  "active": "d87bd6bcac61b618",
   "lastOpenFiles": [
-    "01_homework/homework_1_mac.md",
     "Tutorial.md",
+    "01_homework/homework_2_mac_VS.md",
+    "01_homework/homework_1_mac.md",
     "example_worflow.md",
     "Example_Obsidian_Note.md",
     "Test.md",
