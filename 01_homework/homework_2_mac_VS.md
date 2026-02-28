@@ -136,7 +136,7 @@ We filter out sp004296775 because its taxonomic status is uncertain. It was prev
 **Question 7**: what is the difference between these two flags? 
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
-The --p-exclude flag is telling the q2-taxa filter-table command to filter out any records with these strings of text included in them. In contrast, the --p-include flag is telling the same command that we want to include only records which have an identification down to taxonomic class. The latter flag isn't doing anything as far as I can tell, because every taxonomic label from the GreenGenes database should have c__ in it, even if the class information is empty.
+The --p-exclude flag is telling the q2-taxa filter-table command to filter out any records with these strings of text included in them. In contrast, the --p-include flag is telling the same command that we want to include only records which have an identification down to taxonomic class. The latter flag isn't doing anything (on the dataset that already has mitochondria and chloroplasts filtered out) as far as I can tell, because every taxonomic label from the GreenGenes database should have c__ in it, even if the class information is empty.
 
 **Question 8**: do the positive controls look the same as each other? Yes or No?
 Yes, the two positive control samples look similar to each other in community composition.
