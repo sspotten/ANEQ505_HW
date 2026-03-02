@@ -104,11 +104,14 @@ qiime taxa barplot \
 ![[Pasted image 20260227123606.png]]
 The fecal samples mostly look similar to each other in community composition, but there is more variability between samples in the nasal and oral samples. The skin and udder samples also look similar to each other. The control samples have fewer total taxa, which makes sense.
 
-**_Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples?
-The top 2 most abundant bacterial classes in the fecal samples are Bacteroidia and Clostridia.
+**Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples?
+The top two most abundant bacterial classes in the fecal samples are Bacteroidia and Clostridia.
 
-**_Question 3**: What highly abundant ASV is shared between both the udder and skin samples?
+**Question 3**: What highly abundant ASV is shared between both the udder and skin samples?
 ```
+# I'm sure there's an easier way to visualize this,
+# but I'm going with what I know...
+
 # Join feature table with taxonomy to get ASV-level info
 # Run from within cow folder
 
@@ -124,8 +127,8 @@ qiime metadata tabulate \
 ```
 The ASV d60ea32ec043b8cb552df7c488cae3c7, identified as *Faecousia sp000434635* in the Class Clostridia is the most highly-abundant ASV that is shared between both the udder and skin samples.
 
-**_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
-
+**Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
+Looking at the taxa barplot, it appears that the skin and udder samples have the highest alpha diversity in terms of observed features, although it's hard to tell how closely tied they are to the fecal samples, because skin, udder, and fecal samples all have large numbers of lowly-represented taxa.
 
 **Question 5**: do all samples contain archaea as well?
 Not all of the samples contain Archaea, but the vast majority of them do. Archaea seem to be less abundant in oral and nasal samples. Archaea are absent from the extraction blanks and the positive controls.
