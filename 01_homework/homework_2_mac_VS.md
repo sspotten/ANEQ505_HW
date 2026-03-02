@@ -128,18 +128,18 @@ qiime metadata tabulate \
 The ASV d60ea32ec043b8cb552df7c488cae3c7, identified as *Faecousia sp000434635* in the Class Clostridia is the most highly-abundant ASV that is shared between both the udder and skin samples.
 
 **Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
-Looking at the taxa barplot, it appears that the skin and udder samples have the highest alpha diversity in terms of observed features, although it's hard to tell how closely tied they are to the fecal samples, because skin, udder, and fecal samples all have large numbers of lowly-represented taxa.
+Looking at the taxa barplot, it appears that the skin, udder, and fecal samples have the highest alpha diversity in terms of observed features, although visually it's hard to tell how closely tied they are, because skin, udder, and fecal samples all have large numbers of lowly-represented taxa.
 
 **Question 5**: do all samples contain archaea as well?
 Not all of the samples contain Archaea, but the vast majority of them do. Archaea seem to be less abundant in oral and nasal samples. Archaea are absent from the extraction blanks and the positive controls.
 
 **Question 6**: why do we filter out sp004296775?
-We filter out sp004296775 because its taxonomic status is uncertain. It was previously identified as a bacterium but it may in fact be chloroplast-derived.
+We filter out sp004296775 because its taxonomic status is uncertain. Its originally metagenomic-derived sequence was previously identified as a bacterium but it may in fact be chloroplast-derived.
 
 **Question 7**: what is the difference between these two flags? 
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
-The --p-exclude flag is telling the q2-taxa filter-table command to filter out any records with these strings of text included in them. In contrast, the --p-include flag is telling the same command that we want to include only records which have an identification down to taxonomic class. The latter flag isn't doing anything (on the dataset that already has mitochondria and chloroplasts filtered out) as far as I can tell, because every taxonomic label from the GreenGenes database should have c__ in it, even if the class information is empty.
+The --p-exclude flag is telling the q2-taxa filter-table command to filter out any records with these strings of text included in them. In contrast, the --p-include flag is telling the same command that we want to include only records which have an identification down to taxonomic class. The --p-include flag is telling the command to include only taxa that have the search string (c__). In our case, the --p-include flag isn't doing anything (on the dataset that already has mitochondria and chloroplasts filtered out) as far as I can tell, because every label from the Greengenes2 database should be a complete 7-level taxonomic string that includes c__ in it, even if the class information is empty.
 
 **Question 8**: do the positive controls look the same as each other? Yes or No?
 Yes, the two positive control samples look similar to each other in community composition.
