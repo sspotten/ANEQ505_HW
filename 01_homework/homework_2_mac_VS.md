@@ -139,13 +139,13 @@ We filter out sp004296775 because its taxonomic status is uncertain. Its origina
 **Question 7**: what is the difference between these two flags? 
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
-The --p-exclude flag is telling the q2-taxa filter-table command to filter out any records with these strings of text included in them. In contrast, the --p-include flag is telling the same command that we want to include only records which have an identification down to taxonomic class. The --p-include flag is telling the command to include only taxa that have the search string (c__). In our case, the --p-include flag isn't doing anything (on the dataset that already has mitochondria and chloroplasts filtered out) as far as I can tell, because every label from the Greengenes2 database should be a complete 7-level taxonomic string that includes c__ in it, even if the class information is empty.
+The --p-exclude flag is telling the q2-taxa filter-table command to filter out any records with these strings of text included in their taxonomic labels. In contrast, the --p-include flag is telling the same command that we want to include only records which have an identification down to taxonomic class (i.e., include only taxa that have the search string c__ in the taxonomic label). In our case, the --p-include flag isn't doing anything as far as I can tell, because every label from the Greengenes2 database should be a complete 7-level taxonomic string that includes c__ in it, even if the class information is empty.
 
 **Question 8**: do the positive controls look the same as each other? Yes or No?
 Yes, the two positive control samples look similar to each other in community composition.
 
 **Question 9**: Do the negative/extraction controls (Samples labeled as EC), look like the positive controls? Yes or no?
-For the most part, no, the negative/extraction controls do not look like the positive controls, although there are a few of them that look suspiciously similar to the positive controls.
+For the most part, no, the negative/extraction controls do not look like the positive controls, although there are a few of them that look suspiciously similar to the positive controls (raising the question of whether there may have been some lab procedure-derived contamination from the positive controls).
 
 **Question 10**: do the negative/extraction controls (Samples labeled as EC), look like the real samples? Yes or no?
 With one exception (or maybe two: EC3.4 and EC1.3), compared to the real samples the negative/extraction controls have far fewer taxa in them and thus do not look like real samples.
@@ -178,7 +178,6 @@ module load qiime2/2024.10_amplicon
 
 #Get reference
 wget --no-check-certificate -P ../tree https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-reference.qza
-
 
 #Command
 qiime fragment-insertion sepp \
