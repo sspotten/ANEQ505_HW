@@ -206,3 +206,16 @@ CPU Efficiency: 12.37% of 1-08:03:52 core-walltime
 Job Wall-clock time: 04:00:29  
 Memory Utilized: 6.55 GB  
 Memory Efficiency: 21.83% of 30.00 GB (3.75 GB/core)
+
+**My tree job report:**
+Job ID: 24371394  
+Cluster: alpine  
+User/Group: c829737140@colostate.edu/c829737140pgrp@colostate.edu  
+State: COMPLETED (exit code 0)  
+Nodes: 1  
+Cores per node: 8  
+CPU Utilized: 03:12:02  
+CPU Efficiency: 11.58% of 1-03:38:24 core-walltime  
+Job Wall-clock time: 03:27:18  
+Memory Utilized: 7.81 GB  
+Memory Efficiency: 26.05% of 30.00 GB (3.75 GB/core)
