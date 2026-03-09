@@ -49,7 +49,7 @@ qiime diversity core-metrics-phylogenetic \
 --i-table dada2/cow_table_dada2_filtered300.qza \
 --i-phylogeny tree/tree_gg2.qza \
 --m-metadata-file metadata/cow_metadata.txt \
---p-sampling-depth INSERT SEQ DEPTH HERE \
+--p-sampling-depth 1500 \
 --output-dir core_metrics_results
 ```
 
@@ -58,16 +58,18 @@ qiime diversity core-metrics-phylogenetic \
 - generate a plot to visualize the observed features ~={red}(1 point)=~
 ```
 qiime diversity alpha-group-significance \
---i-alpha-diversity core_metrics_results/FILENAME.qza \
+--i-alpha-diversity core_metrics_results/observed_features_vector.qza \
 --m-metadata-file metadata/cow_metadata.txt \
---o-visualization core_metrics_results/OUTPUT-FILENAME.qzv
+--o-visualization core_metrics_results/observed_features_statistics.qzv
 ```
 
 - generate a plot to visualize faith's PD ~={red}(2 points)=~
 ```
 ## insert the entire code chunk for generating this visualization 
-
-
+qiime diversity alpha-group-significance \  
+--i-alpha-diversity core-metrics-results/faith_pd_vector.qza \  
+--m-metadata-file metadata/cow_metadata.txt \  
+--o-visualization core-metrics-results/faiths_pd_statistics.qzv
 ```
 
 
@@ -75,7 +77,9 @@ qiime diversity alpha-group-significance \
 ## Homework questions ~={red}(10 points)=~
 
 1. what is the name of the file you needed to use to figure out what min and max depths to use to generate the alpha rarefaction plot? (Hint: which file contains the sequencing depths for each sample)
-2. what did you choose for the rarefaction depth (the input for core metrics -p-sampling-depth flag)? why? 
+	1. The name of the file we need to use to figure out the min and max sequencing depths to use to generate the alpha rarefaction plot is the feature table visualization `cow_table_dada2_filtered300.qzv`.
+2. what did you choose for the rarefaction depth (the input for core metrics -p-sampling-depth flag)? why?
+	1. I chose a sampling depth of 1,500 reads
 3. Which cow body location had more observed features? Which has the lowest?
 4. What is the main difference between Faiths PD and Shannons alpha diversity metrics?  
 5. Which diversity metrics produced by the core-metrics pipeline require phylogenetic information?
