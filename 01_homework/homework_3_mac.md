@@ -87,14 +87,28 @@ qiime diversity alpha-group-significance \
 5. Which diversity metrics produced by the core-metrics pipeline require phylogenetic information?
 6. Which two body sites have the highest Faiths PD alpha diversity?  Are the groups significantly different?
 	1. The skin and fecal samples have the highest Faith's PD alpha diversity. With a q-value of 3.548956e-04 in the Kruskal-Wallis pairwise test, these two groups are significantly different.
-7. Does it seem like there are any groupings in the beta diversity? What are the groupings? 
-8. Why do you think these samples are grouping together? 
+7. Does it seem like there are any groupings in the beta diversity? What are the groupings?
+	1. There do appear to be some groupings in the beta diversity metrics (unweighted UniFrac and Bray-Curtis). The fecal samples are clustering together on their own, the skin and udder samples together form another grouping, and the nasal and oral samples form a third grouping, although it is much more loosely clustered than the first two.
+8. Why do you think these samples are grouping together?
+	1. These samples are likely grouping together because their host environments are similar to or in close proximity to each other, leading to similarities in their microbiome communities (e.g. skin with udder, nasal with oral). The fecal samples are coming from a completely different host environment, the cow's gut, which does not share environmental conditions with any of the other sample types.
 9. What test can you run to determine if the groups are significantly different?
+	1. We can use a PERMANOVA (non-parametric multivariate analysis of variance) to test whether the distances within each group are different from differences between groups.
 10. What command would you use to run that test?
 
 ```
 #insert command for running the test you suggest from question 7
 
+# Unweighted UniFrac:
+qiime diversity beta-group-significance \
+--i-distance-matrix core_metrics_results/unweighted_unifrac_distance_matrix.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--m-metadata-column body_site \
+--o-visualization core_metrics_results/unweighted_unifrac_distance_matrix.qzv
 
-
+# Bray-Curtis:
+qiime diversity beta-group-significance \
+--i-distance-matrix core_metrics_results/bray_curtis_distance_matrix.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--m-metadata-column body_site \
+--o-visualization core_metrics_results/bray_curtis_distance_matrix.qzv
 ```
