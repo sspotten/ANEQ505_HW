@@ -65,11 +65,11 @@ qiime diversity alpha-group-significance \
 
 - generate a plot to visualize faith's PD ~={red}(2 points)=~
 ```
-## insert the entire code chunk for generating this visualization 
-qiime diversity alpha-group-significance \  
---i-alpha-diversity core-metrics-results/faith_pd_vector.qza \  
---m-metadata-file metadata/cow_metadata.txt \  
---o-visualization core-metrics-results/faiths_pd_statistics.qzv
+## insert the entire code chunk for generating this visualization
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results/faith_pd_vector.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--o-visualization core_metrics_results/faiths_pd_statistics.qzv
 ```
 
 
@@ -79,11 +79,14 @@ qiime diversity alpha-group-significance \
 1. what is the name of the file you needed to use to figure out what min and max depths to use to generate the alpha rarefaction plot? (Hint: which file contains the sequencing depths for each sample)
 	1. The name of the file we need to use to figure out the min and max sequencing depths to use to generate the alpha rarefaction plot is the feature table visualization `cow_table_dada2_filtered300.qzv`.
 2. what did you choose for the rarefaction depth (the input for core metrics -p-sampling-depth flag)? why?
-	1. I chose a sampling depth of 1,500 reads
+	1. I chose a sampling depth of 1,500 reads to try to balance retaining as many samples as possible (89%) with culling low-depth (and therefore low-information) samples. 
 3. Which cow body location had more observed features? Which has the lowest?
-4. What is the main difference between Faiths PD and Shannons alpha diversity metrics?  
+	1. The fecal samples consistently had the most observed features. Aside from the controls, the nasal samples had the lowest number of observed features.
+4. What is the main difference between Faiths PD and Shannons alpha diversity metrics?
+	1. The main difference between Faith's PD and Shannon diversity is that Faith's PD is phylogenetically-informed, while Shannon is based strictly on the number of different features observed.
 5. Which diversity metrics produced by the core-metrics pipeline require phylogenetic information?
 6. Which two body sites have the highest Faiths PD alpha diversity?  Are the groups significantly different?
+	1. The skin and fecal samples have the highest Faith's PD alpha diversity. With a q-value of 3.548956e-04 in the Kruskal-Wallis pairwise test, these two groups are significantly different.
 7. Does it seem like there are any groupings in the beta diversity? What are the groupings? 
 8. Why do you think these samples are grouping together? 
 9. What test can you run to determine if the groups are significantly different?
