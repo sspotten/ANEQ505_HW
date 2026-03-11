@@ -85,6 +85,10 @@ qiime diversity alpha-group-significance \
 4. What is the main difference between Faiths PD and Shannons alpha diversity metrics?
 	1. The main difference between Faith's PD and Shannon diversity is that Faith's PD is phylogenetically-informed, while Shannon is based strictly on the number of different features observed.
 5. Which diversity metrics produced by the core-metrics pipeline require phylogenetic information?
+	1. The diversity metrics in the core-metrics pipeline that require phylogenetic information are:
+		1. Faith's Phylogenetic Diversity
+		2. Unweighted UniFrac
+		3. Weighted UniFrac
 6. Which two body sites have the highest Faiths PD alpha diversity?  Are the groups significantly different?
 	1. The skin and fecal samples have the highest Faith's PD alpha diversity. With a q-value of 3.548956e-04 in the Kruskal-Wallis pairwise test, these two groups are significantly different.
 7. Does it seem like there are any groupings in the beta diversity? What are the groupings?
