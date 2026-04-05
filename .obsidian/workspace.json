@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01_homework/homework_1_mac.md",
+                "file": "01_homework/homework_2_mac_VS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "homework_1_mac"
+              "title": "homework_2_mac_VS"
             }
           },
           {
@@ -35,8 +35,7 @@
               "title": "Workflow"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -197,7 +196,7 @@
       "bases:Create new base": false
     }
   },
-  "active": "f8b140b5a8c0c497",
+  "active": "ac7e5d19517353a9",
   "lastOpenFiles": [
     "01_homework/homework_1_mac.md",
     "02_class_project/Workflow.md",
