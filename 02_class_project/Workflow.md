@@ -49,7 +49,7 @@ qiime dada2 denoise-paired \
 --p-trunc-len-f 250 \
 --p-trunc-len-r 250 \
 --p-n-threads 12 \
---o-representative-sequences rep-seqs.qza \
+--o-representative-sequences rep_seqs.qza \
 --o-denoising-stats dada2_stats.qza \
 --o-table table.qza
 
@@ -64,10 +64,52 @@ qiime feature-table summarize \
 --o-visualization table.qzv
 
 qiime feature-table tabulate-seqs \
---i-data rep-seqs.qza \
---o-visualization rep-seqs.qzv
+--i-data rep_seqs.qza \
+--o-visualization rep_seqs.qzv
 ```
 ## Run Slurm script
 ```
 sbatch denoise.sh
+```
+# Filter out large ASVs (off-target taxa)
+## Slurm script contents
+```
+#!/bin/bash
+#SBATCH --job-name=filter
+#SBATCH --nodes=1
+#SBATCH --ntasks=12
+#SBATCH --partition=amilan
+#SBATCH --time=02:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=sarah.spotten@colostate.edu
+
+# Activate QIIME2
+module purge
+module load qiime2/2024.10_amplicon
+
+# Change directory
+cd /scratch/alpine/$USER/aneq505/drought_soils/dada2
+
+# Filter out large ASVs (off-target taxa)
+qiime feature-table filter-seqs \
+--i-data rep_seqs.qza \
+--m-metadata-file rep_seqs.qza \
+--p-where 'length(sequence) < 300' \
+--o-filtered-data rep_seqs_filtered300.qza
+
+qiime feature-table tabulate-seqs \
+--i-data rep_seqs_filtered300.qza \
+--o-visualization rep_seqs_filtered300.qzv
+
+qiime feature-table filter-features \
+--i-table table.qza \
+--m-metadata-file rep_seqs_filtered300.qza \
+--o-filtered-table table_filtered300.qza
+  
+qiime feature-table summarize \
+--i-table table_filtered300.qza \
+--m-sample-metadata-file ../metadata/metadata.tsv \
+--o-visualization table_filtered300.qzv
 ```

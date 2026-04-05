@@ -35,7 +35,8 @@
               "title": "Workflow"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -196,18 +197,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "ac7e5d19517353a9",
+  "active": "f8b140b5a8c0c497",
   "lastOpenFiles": [
-    "01_homework/homework_1_mac.md",
+    "example_worflow.md",
     "02_class_project/Workflow.md",
     "01_homework/homework_2_mac_VS.md",
+    "01_homework/homework_1_mac.md",
     "01_homework/homework_3_mac.md",
     "03_paper_discussions/Paper discussion 2026-03-11.md",
     "01_homework/Screenshot 2026-02-27 at 12.35.42 PM.png",
     "Screenshot 2026-02-27 at 12.35.42 PM.png",
     "Pasted image 20260227123606.png",
     "Tutorial.md",
-    "example_worflow.md",
     "Example_Obsidian_Note.md",
     "Test.md",
     "04_extra_credit",
