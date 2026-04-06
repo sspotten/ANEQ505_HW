@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01_homework/homework_4_mac.md",
+                "file": "01_homework/homework_1_mac.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "homework_4_mac"
+              "title": "homework_1_mac"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -211,13 +211,13 @@
       "bases:Create new base": false
     }
   },
-  "active": "3696889d1245b70d",
+  "active": "f8b140b5a8c0c497",
   "lastOpenFiles": [
-    "02_class_project/Workflow.md",
+    "01_homework/homework_1_mac.md",
     "01_homework/homework_4_mac.md",
+    "02_class_project/Workflow.md",
     "example_worflow.md",
     "01_homework/homework_2_mac_VS.md",
-    "01_homework/homework_1_mac.md",
     "01_homework/homework_3_mac.md",
     "03_paper_discussions/Paper discussion 2026-03-11.md",
     "01_homework/Screenshot 2026-02-27 at 12.35.42 PM.png",
