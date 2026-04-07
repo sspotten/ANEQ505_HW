@@ -74,7 +74,7 @@ uw_unifrac <- read_tsv("beta_div/unweighted_unifrac.txt")
 **Load in tabulated results ~={red}(1 point)=~**
 - Fill in the file path you used in the R Markdown to load the tabulated_results.tsv
 ```
-tabulated_results <- read_tsv("YOUR FILE PATH HERE")
+tabulated_results <- read_tsv("taxonomy/tabulated_results.tsv")
 ```
 
 #### Cow Body Site - ANCOM-BC2 in Qiime2
