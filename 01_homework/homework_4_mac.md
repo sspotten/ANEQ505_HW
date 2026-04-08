@@ -162,7 +162,8 @@ qiime composition ancombc2-visualizer \
 ```
 
 ## Homework questions: (~={red}5 POINTS=~)
-1. Describe one way to get data from your qiime2 outputs into a format that can be used for R. 
+1. Describe one way to get data from your qiime2 outputs into a format that can be used for R.
+	1. 
 
 2. Which body site appeared most distinct in the taxa bar plot, meaning it was not similar to at least one of the other body sites? Explain why that site looks different.
 	1. The fecal samples appeared most distinct in the taxa bar plot. This makes sense since the fecal samples have come through the gut, where many different microbes live that don't occur in the other body sites, which are external to the animal.
@@ -209,14 +210,15 @@ qiime sample-classifier classify-samples \
 
 ```
 qiime metadata tabulate \
---m-input-file sample_regressor_results_bodysite/feature_importance.qza \
---o-visualization sample_regressor_results_bodysite/feature_importance.qzv
+--m-input-file sample_classifier_results_bodysite/feature_importance.qza \
+--o-visualization sample_classifier_results_bodysite/feature_importance.qzv
 ```
 ### **Questions:**
-1. Why might removing controls be important before downstream analysis? 
+1. Why might removing controls be important before downstream analysis?
+	1. We don't want the ML classifier to learn patterns (if any) in control samples, because control samples will not add meaningful information to the model at best, or degrade the model's performance at worst. In other words, we don't care if the model can distinguish controls from other samples, we care if it can reliably distinguish between different cow body sites, which is our biological question.
 2. what 2 features that are high in fecal samples?
-	1. The two features that are high in fecal samples are **Cryptobacteroides sp902787255** and **Faecousia sp000434635**.
+	1. The two features that are high in fecal samples are the species **Cryptobacteroides sp902787255** and **Faecousia sp000434635**.
 3. what are 2 features that are low in nasal?
-	1. It's hard to tell by the heatmap
+	1. It's hard to tell by the heatmap, but if I'm interpreting the colors correctly, aside from several taxa that appear to be at a log10 frequency of 0, but the genus **Parabacteroides_B_862066** and genus **Ruoffia** are the two lowest taxa in the nasal sample group.
 4. what is the accuracy of your model, and if the accuracy of the classifier is high, what does that suggest about the microbial compositions of each site?
-	1. The baseline accuracy of the classifier is 88% (0.882353) and the micro-average AUC is 0.99, which is very good. (So good, in fact, that I start to suspect overtraining; i.e. how well would this model perform on a new dataset?) The only samples that are getting confused with each other some of the time are the skin and udder samples, which makes sense given how similar they are in composition, as seen in previous analyses. Fecal, nasal, and oral samples are getting predicted as the correct class 100% of the time. This suggests that the microbial communities in each body site are consistently quite different from each other, such that it is very easy to identify them based on their composition.
+	1. The baseline accuracy of the classifier is 88% (0.882353) and the micro-average AUC is 0.99, which is very good. (So good, in fact, that I start to suspect overtraining; i.e. has it learned the patterns of this particular dataset a little too well, such that it would perform poorly on a new dataset?) The only samples that are getting confused with each other some of the time are the skin and udder samples, which makes sense given how similar they are in composition, as seen in previous analyses. Fecal, nasal, and oral samples are getting predicted as the correct class 100% of the time. This suggests that the microbial communities in each body site are consistently quite different from each other, such that it is very easy to identify them based on their composition.
