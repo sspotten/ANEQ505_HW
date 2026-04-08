@@ -168,14 +168,13 @@ qiime composition ancombc2-visualizer \
 	1. The fecal samples appeared most distinct in the taxa bar plot. This makes sense since the fecal samples have come through the gut, where many different microbes live that don't occur in the other body sites, which are external to the animal.
 
 3. When generating the filtered table for ANCOM-BC2, what value did you choose for `--p-min-frequency`? Which core metrics parameter should this match, and why do these values need to be the same? (Report your core metrics value here: **5000**)
-	1. We want the sampling depth of the samples in the filtered table for ANCOM-BC2 to match the sampling depth (rarefaction depth) we chose in rarefying for core diversity metrics (--p-sampling-depth 5000). We want to be consistent in our sampling depth across analyses and use the same samples for both core metrics and ANCOM-BC2, because including the low-depth samples in the latter can introduce noise that might bias our interpretation of differential abundance between samples.
+	1. We want the sampling depth of the samples in the filtered table for ANCOM-BC2 to match the sampling depth (rarefaction depth) we chose in rarefying for core diversity metrics (--p-sampling-depth 5000). We want to be consistent in our sampling depth across analyses and use the same samples for both core metrics and ANCOM-BC2, because including the low-depth samples in the latter can introduce noise that might bias our interpretation of diversity and differential abundance between sample types.
 
 4. Why do we filter out samples with low frequency and low abundance ASVs?
 	1. In the case of both, it is to reduce bias. Filtering out samples with low frequency (sampling depth) is addressed in question 3. Filtering out low-abundance ASVs is also important because at low frequencies, it is difficult to separate signal from noise. Is an ASV that is only represented a handful of times real signal, or an artifact of some kind (contamination, PCR error, a result of the stochastic sampling error and <100% efficiency inherent to PCR, etc.)? If we leave low-abundance ASVs in the dataset, they could bias our diversity and our differential abundance results.
 
 5. What was the most enriched genus in skin compared to fecal, and what was the most depleted genus in skin compared to fecal (make sure adjusted p is set to less than 0.05)?
-	1. The most enriched genus in skin compared to fecal samples was 
-	
+	1. The most enriched genus in skin compared to fecal samples was **Atopostipes**. The most depleted genus in skin compared to fecal samples was **Streptococcus**.
 
 ## Extra credit~={orange} (3 points)=~ generate a classification model to see how well we can predict cow body site
 
@@ -193,7 +192,7 @@ qiime feature-table filter-samples \
 
 qiime taxa collapse \
 --i-table rarefied_table_no_controls.qza \
---i-taxonomy ../taxonomy/taxonomy_gg2.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2_filtered.qza \
 --p-level 7 \
 --o-collapsed-table rarefied_table_no_controls_L7.qza
 ```
@@ -202,7 +201,7 @@ qiime taxa collapse \
 qiime sample-classifier classify-samples \
 --i-table rarefied_table_no_controls_L7.qza \
 --m-metadata-file ../metadata/cow_metadata_nocontrols.txt \
---m-metadata-column WHAT TO TEST \
+--m-metadata-column body_site \
 --p-random-state 123 \
 --p-n-jobs 1 \
 --output-dir sample_classifier_results_bodysite
