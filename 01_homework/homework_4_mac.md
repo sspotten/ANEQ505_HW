@@ -142,8 +142,8 @@ qiime taxa collapse \
 
 ```
 qiime composition ancombc2 \
---i-table table_5k_abund_GENUS NUMBER.qza \
---m-metadata-file cow_metadata_nocontrols.txt \
+--i-table table_5k_abund_6.qza \
+--m-metadata-file ../metadata/cow_metadata_nocontrols.txt \
 --p-fixed-effects-formula body_site \
 --o-ancombc2-output ancombc2_results_bodysite_genus.qza
 ```
@@ -153,11 +153,11 @@ qiime composition ancombc2 \
 - Generate a barplot to visualize the differentially abundant features. 
 ```
 qiime composition tabulate \
---i-data INPUT FILE \
+--i-data ancombc2_results_bodysite_genus.qza \
 --o-visualization ancombc2_bodysite_genus.qzv
   
 qiime composition ancombc2-visualizer \
-  --i-data INPUT FILE \
+  --i-data ancombc2_results_bodysite_genus.qza \
   --o-visualization ancombc2_barplot_bodysite_genus.qzv
 ```
 
