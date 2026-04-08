@@ -132,7 +132,7 @@ qiime feature-table filter-features \
 ```
 qiime taxa collapse \
 --i-table table_5k_abund.qza \
---i-taxonomy ../taxonomy/taxonomy_gg2.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2_filtered.qza \
 --p-level 6 \
 --o-collapsed-table table_5k_abund_6.qza
 ```
