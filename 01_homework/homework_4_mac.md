@@ -80,7 +80,8 @@ tabulated_results <- read_tsv("taxonomy/tabulated_results.tsv")
 #### Cow Body Site - ANCOM-BC2 in Qiime2
 **Start an interactive session and activate Qiime2**
 ```
-ainteractive --ntasks=4 --time=04:00:00
+# Note that I added the --qos flag since Alpine complained without it
+ainteractive --ntasks=4 --time=04:00:00 --qos=normal
 ```
 
 - **ANCOMBC2 is only available in the 2026 versions of qiime2, so we need to activate the latest version. Make sure to activate qiime2026**
@@ -93,13 +94,15 @@ module load qiime2/2026.1_amplicon
 
 **Filter controls out of our table
 ```
-# Get matadata with no controls
+# Get metadata with no controls--save to metadata folder
 cp /pl/active/courses/2025_summer/CSU_2025/cow_hw/cow_metadata_nocontrols.txt .
 
+cd ../dada2
+
 qiime feature-table filter-samples \
-  --i-table ../dada2/table_nomitochloro_gg2_filtered300.qza \
-  --m-metadata-file cow_metadata_nocontrols.txt \
-  --o-filtered-table table_nomitochlorocontrols_gg2_filtered300.qza
+--i-table table_nomitochloro_gg2_filtered300.qza \
+--m-metadata-file ../metadata/cow_metadata_nocontrols.txt \
+--o-filtered-table table_nomitochlorocontrols_gg2_filtered300.qza
 ```
 
 **Filter Samples ~={red}(1 point)=~** 
@@ -108,8 +111,8 @@ qiime feature-table filter-samples \
 - Choose the min frequency for sample filtering:
 ```
 qiime feature-table filter-samples \
---i-table table_nomitochlorocontrols_gg2_filtered300.qza \
---p-min-frequency YOUR NUMBER HERE \
+--i-table ../dada2/table_nomitochlorocontrols_gg2_filtered300.qza \
+--p-min-frequency 5000 \
 --o-filtered-table table_5k.qza
 ```
 
@@ -117,7 +120,7 @@ qiime feature-table filter-samples \
 
 ```
 qiime feature-table filter-features \
---i-table INPUT TABLE \
+--i-table table_5k.qza \
 --p-min-frequency 50 \
 --p-min-samples 20 \
 --o-filtered-table table_5k_abund.qza
