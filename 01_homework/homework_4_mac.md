@@ -164,9 +164,11 @@ qiime composition ancombc2-visualizer \
 ## Homework questions: (~={red}5 POINTS=~)
 1. Describe one way to get data from your qiime2 outputs into a format that can be used for R. 
 
-2. Which body site appeared most distinct in the taxa bar plot, meaning it was not similar to at least one of the other body sites? Explain why that site looks different. 
+2. Which body site appeared most distinct in the taxa bar plot, meaning it was not similar to at least one of the other body sites? Explain why that site looks different.
+	1. The fecal samples appeared most distinct in the taxa bar plot. This makes sense since the fecal samples have come through the gut, where many different microbes live that don't occur in the other body sites, which are external to the animal.
 
-3. When generating the filtered table for ANCOM-BC2, what value did you choose for `--p-min-frequency`? Which core metrics parameter should this match, and why do these values need to be the same? (Report your core metrics value here: **5000**) 
+3. When generating the filtered table for ANCOM-BC2, what value did you choose for `--p-min-frequency`? Which core metrics parameter should this match, and why do these values need to be the same? (Report your core metrics value here: **5000**)
+	1. We want the sampling depth of the samples in the filtered table for ANCOM-BC2 to match the sampling depth (rarefaction depth) we chose in rarefying for core diversity metrics (--p-sampling-depth 5000).
 
 4. Why do we filter out samples with low frequency and low abundance ASVs?
 
