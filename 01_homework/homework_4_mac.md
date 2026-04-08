@@ -163,7 +163,7 @@ qiime composition ancombc2-visualizer \
 
 ## Homework questions: (~={red}5 POINTS=~)
 1. Describe one way to get data from your qiime2 outputs into a format that can be used for R.
-	1. 
+	1. One way to get data out of QIIME2 artifacts is to unzip them on the command line, then download the particular files we are interested in (for our purposes, that was shannon.tsv, unweighted_unifrac.txt). In the case of downloading a feature table with sequence and taxonomic classifications in wide format for ingesting into R, we first need to transpose the feature table, then merge it with the sequence and taxonomic classification tables, then generate a QIIME2 visualization file from which we can download the TSV containing the merged data (our tabulated_results.tsv file). All of these TSV and TXT files can then be ingested into R for further analyses.
 
 2. Which body site appeared most distinct in the taxa bar plot, meaning it was not similar to at least one of the other body sites? Explain why that site looks different.
 	1. The fecal samples appeared most distinct in the taxa bar plot. This makes sense since the fecal samples have come through the gut, where many different microbes live that don't occur in the other body sites, which are external to the animal.
@@ -215,7 +215,7 @@ qiime metadata tabulate \
 ```
 ### **Questions:**
 1. Why might removing controls be important before downstream analysis?
-	1. We don't want the ML classifier to learn patterns (if any) in control samples, because control samples will not add meaningful information to the model at best, or degrade the model's performance at worst. In other words, we don't care if the model can distinguish controls from other samples, we care if it can reliably distinguish between different cow body sites, which is our biological question.
+	1. We don't want the ML classifier to learn patterns (if any) in control samples, because control samples will not add meaningful information to the model at best, or degrade the model's performance at worst. In other words, we don't care if the model can distinguish controls from other samples, we care if it can reliably distinguish between different cow body sites, which is our biological question--so we want the ML classifier to focus only on learning the latter task.
 2. what 2 features that are high in fecal samples?
 	1. The two features that are high in fecal samples are the species **Cryptobacteroides sp902787255** and **Faecousia sp000434635**.
 3. what are 2 features that are low in nasal?
