@@ -207,8 +207,16 @@ qiime sample-classifier classify-samples \
 --output-dir sample_classifier_results_bodysite
 ```
 
+```
+qiime metadata tabulate \
+--m-input-file sample_regressor_results_bodysite/feature_importance.qza \
+--o-visualization sample_regressor_results_bodysite/feature_importance.qzv
+```
 ### **Questions:**
 1. Why might removing controls be important before downstream analysis? 
-2. what 2 features that are high in fecal samples? 
+2. what 2 features that are high in fecal samples?
+	1. The two features that are high in fecal samples are **Cryptobacteroides sp902787255** and **Faecousia sp000434635**.
 3. what are 2 features that are low in nasal?
+	1. It's hard to tell by the heatmap
 4. what is the accuracy of your model, and if the accuracy of the classifier is high, what does that suggest about the microbial compositions of each site?
+	1. The baseline accuracy of the classifier is 88% (0.882353) and the micro-average AUC is 0.99, which is very good. (So good, in fact, that I start to suspect overtraining; i.e. how well would this model perform on a new dataset?) The only samples that are getting confused with each other some of the time are the skin and udder samples, which makes sense given how similar they are in composition, as seen in previous analyses. Fecal, nasal, and oral samples are getting predicted as the correct class 100% of the time. This suggests that the microbial communities in each body site are consistently quite different from each other, such that it is very easy to identify them based on their composition.
