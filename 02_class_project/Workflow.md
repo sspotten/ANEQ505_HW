@@ -208,3 +208,15 @@ qiime taxa barplot \
 --m-metadata-file ../metadata/metadata.tsv \
 --o-visualization taxa_barplot_controls.qzv
 ```
+## Run Slurm script
+```
+sbatch filter_taxonomy_barplots.sh
+```
+Inspect controls for patterns that look like real samples. (In our case, lab controls look like very low-abundance, which suggests very minor contamination.)
+# Phylogenetic tree
+## Get Greengenes2 backbone for SEPP insertion tree
+```
+cd ../tree
+
+wget https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-reference.qza
+```
