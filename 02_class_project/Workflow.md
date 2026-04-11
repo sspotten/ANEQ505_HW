@@ -158,12 +158,53 @@ qiime metadata tabulate \
 sbatch taxonomy.sh
 ```
 Inspect output for off-target taxa.
-## Filter feature table by taxonomy
+# Filter feature table by taxonomy and generate taxa barplots
 ```
+#!/bin/bash
+#SBATCH --job-name=filter_taxonomy_barplots
+#SBATCH --nodes=1
+#SBATCH --ntasks=12
+#SBATCH --partition=amilan
+#SBATCH --time=02:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=sarah.spotten@colostate.edu
+
+# Activate QIIME2
+module purge
+module load qiime2/2024.10_amplicon
+
+# Change directory
+cd /scratch/alpine/$USER/aneq505/drought_soils/taxonomy
+
+# Filter feature table to remove mitochondria and chloroplasts
+
 qiime taxa filter-table \
 --i-table ../dada2/table_filtered300.qza \
 --i-taxonomy taxonomy_gg2_filtered300.qza \
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
 --o-filtered-table ../dada2/table_nomitochloro_gg2_filtered300.qza
+
+# Generate taxa barplot for all samples
+cd ../taxaplots
+
+qiime taxa barplot \
+--i-table ../dada2/table_nomitochloro_gg2_filtered300.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2_filtered300.qza \
+--o-visualization taxa_barplot_nomitochloro_gg2_filtered300.qzv
+
+# Check taxa barplots of lab process controls only
+qiime feature-table filter-samples \
+--i-table ../dada2/table_nomitochloro_gg2_filtered300.qza \
+--m-metadata-file ../metadata/metadata.tsv \
+--p-where "[Treatment]='Lab Control'" \
+--o-filtered-table ../dada2/table_controls.qza
+
+qiime taxa barplot \
+--i-table ../dada2/table_controls.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2_filtered300.qza \
+--m-metadata-file ../metadata/metadata.tsv \
+--o-visualization taxa_barplot_controls.qzv
 ```
