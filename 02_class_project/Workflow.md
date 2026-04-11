@@ -228,7 +228,7 @@ wget https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-re
 ## Tree Slurm script
 ```
 #!/bin/bash
-#SBATCH --job-name=sepp
+#SBATCH --job-name=sepp_tree
 #SBATCH --nodes=1
 #SBATCH --ntasks=24
 #SBATCH --partition=amilan
@@ -255,5 +255,5 @@ qiime fragment-insertion sepp \
 ```
 Run Slurm script
 ```
-sbatch sepp_.sh
+sbatch sepp_tree.sh
 ```
