@@ -75,7 +75,7 @@ sbatch denoise.sh
 ## Slurm script contents
 ```
 #!/bin/bash
-#SBATCH --job-name=filter
+#SBATCH --job-name=filter300
 #SBATCH --nodes=1
 #SBATCH --ntasks=12
 #SBATCH --partition=amilan
@@ -122,10 +122,10 @@ cd taxonomy
 
 wget --no-check-certificate https://ftp.microbio.me/greengenes_release/2024.09/2024.09.backbone.v4.nb.qza
 ```
-## Taxonomic classification sbatch script
+## Taxonomic classification Slurm script
 ```
 #!/bin/bash
-#SBATCH --job-name=filter
+#SBATCH --job-name=taxonomy
 #SBATCH --nodes=1
 #SBATCH --ntasks=12
 #SBATCH --partition=amilan
@@ -143,17 +143,27 @@ module load qiime2/2024.10_amplicon
 cd /scratch/alpine/$USER/aneq505/drought_soils/taxonomy
 
 # Classify using Greengenes2 pre-trained classifier
-qiime feature-classifier classify-sklearn \  
---i-reads ../dada2/rep_seqs_filtered300.qza \  
---i-classifier 2024.09.backbone.v4.nb.qza \  
+qiime feature-classifier classify-sklearn \
+--i-reads ../dada2/rep_seqs_filtered300.qza \
+--i-classifier 2024.09.backbone.v4.nb.qza \
 --o-classification taxonomy_gg2_filtered300.qza
 
 # Generate taxonomy visualization
-qiime metadata tabulate \  
---m-input-file taxonomy_gg2_filtered300.qza \  
+qiime metadata tabulate \
+--m-input-file taxonomy_gg2_filtered300.qza \
 --o-visualization taxonomy_gg2_filtered300.qzv
 ```
-Run sbatch script
+## Run Slurm script
 ```
-sbatch t
+sbatch taxonomy.sh
+```
+Inspect output for off-target taxa.
+## Filter feature table by taxonomy
+```
+qiime taxa filter-table \
+--i-table ../dada2/table_filtered300.qza \
+--i-taxonomy taxonomy_gg2_filtered300.qza \
+--p-exclude mitochondria,chloroplast,sp004296775 \
+--p-include c__ \
+--o-filtered-table ../dada2/table_nomitochloro_gg2_filtered300.qza
 ```
