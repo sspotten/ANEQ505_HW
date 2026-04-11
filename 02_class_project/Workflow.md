@@ -113,3 +113,47 @@ qiime feature-table summarize \
 --m-sample-metadata-file ../metadata/metadata.tsv \
 --o-visualization table_filtered300.qzv
 ```
+# Taxonomic classification
+## Download pre-trained Greengenes2 classifier
+```
+mkdir taxonomy
+
+cd taxonomy
+
+wget --no-check-certificate https://ftp.microbio.me/greengenes_release/2024.09/2024.09.backbone.v4.nb.qza
+```
+## Taxonomic classification sbatch script
+```
+#!/bin/bash
+#SBATCH --job-name=filter
+#SBATCH --nodes=1
+#SBATCH --ntasks=12
+#SBATCH --partition=amilan
+#SBATCH --time=02:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=sarah.spotten@colostate.edu
+
+# Activate QIIME2
+module purge
+module load qiime2/2024.10_amplicon
+
+# Change directory
+cd /scratch/alpine/$USER/aneq505/drought_soils/taxonomy
+
+# Classify using Greengenes2 pre-trained classifier
+qiime feature-classifier classify-sklearn \  
+--i-reads ../dada2/rep_seqs_filtered300.qza \  
+--i-classifier 2024.09.backbone.v4.nb.qza \  
+--o-classification taxonomy_gg2_filtered300.qza
+
+# Generate taxonomy visualization
+qiime metadata tabulate \  
+--m-input-file taxonomy_gg2_filtered300.qza \  
+--o-visualization taxonomy_gg2_filtered300.qzv
+```
+Run sbatch script
+```
+sbatch t
+```
