@@ -179,13 +179,18 @@ module load qiime2/2024.10_amplicon
 cd /scratch/alpine/$USER/aneq505/drought_soils/taxonomy
 
 # Filter feature table to remove mitochondria and chloroplasts
-
 qiime taxa filter-table \
 --i-table ../dada2/table_filtered300.qza \
 --i-taxonomy taxonomy_gg2_filtered300.qza \
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
 --o-filtered-table ../dada2/table_nomitochloro_gg2_filtered300.qza
+
+# Filter representative sequences to match filtered feature table
+qiime feature-table filter-seqs \
+--i-data ../dada2/rep_seqs_filtered300.qza \
+--i-table ../dada2/table_nomitochloro_gg2_filtered300.qza \
+--o-filtered-data ../dada2/rep_seqs_nomitochloro_gg2_filtered300.qza
 
 # Generate taxa barplot for all samples
 cd ../taxaplots
@@ -219,4 +224,36 @@ Inspect controls for patterns that look like real samples. (In our case, lab con
 cd ../tree
 
 wget https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-reference.qza
+```
+## Tree Slurm script
+```
+#!/bin/bash
+#SBATCH --job-name=sepp
+#SBATCH --nodes=1
+#SBATCH --ntasks=24
+#SBATCH --partition=amilan
+#SBATCH --time=04:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=sarah.spotten@colostate.edu
+
+# Activate QIIME2
+module purge
+module load qiime2/2024.10_amplicon
+
+# Change directory
+cd /scratch/alpine/$USER/aneq505/drought_soils/tree
+
+# SEPP fragment insertion tree
+qiime fragment-insertion sepp \
+--i-representative-sequences ../dada2/rep_seqs_nomitochloro_gg2_filtered300.qza \
+--i-reference-database 2022.10.backbone.sepp-reference.qza \
+--o-tree tree_gg2.qza \
+--o-placements tree_gg2_placements.qza \
+--p-threads 24
+```
+Run Slurm script
+```
+sbatch sepp_.sh
 ```
