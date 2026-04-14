@@ -260,9 +260,20 @@ sbatch sepp_tree.sh
 # Rarefaction
 ## Filter lab controls from samples
 ```
+# Run in outer drought_soils directory
 qiime feature-table filter-samples \
 --i-table dada2/table_nomitochloro_gg2_filtered300.qza \
---m-metadata-file metadata/metadata.txt \
+--m-metadata-file metadata/metadata.tsv \
 --p-where "NOT [Treatment] IN ('Lab Control') " \
 --o-filtered-table dada2/table_nomitochloro_nocontrol.qza
+```
+## Generate alpha rarefaction curve
+```
+cd alpha_rarefaction
+
+qiime diversity alpha-rarefaction \
+--i-table ../dada2/table_nomitochloro_nocontrol.qza \
+--m-metadata-file ../metadata/metadata.tsv \
+--p-max-depth 75000 \
+--o-visualization alpha_rarefaction_curves.qzv
 ```
