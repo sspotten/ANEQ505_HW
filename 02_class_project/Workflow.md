@@ -277,3 +277,16 @@ qiime diversity alpha-rarefaction \
 --p-max-depth 35000 \
 --o-visualization alpha_rarefaction_curves.qzv
 ```
+Looking at this alpha rarefaction curve, it appears that 14,000 reads is a decent rarefaction threshold to start at.
+# Core metrics
+## Core metrics Slurm script (--p-max-depth 14000)
+```
+
+
+qiime diversity core-metrics-phylogenetic \
+--i-table dada2/cow_table_dada2_filtered300.qza \
+--i-phylogeny tree/tree_gg2.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--p-sampling-depth 1500 \
+--output-dir core_metrics_results
+```
