@@ -279,14 +279,44 @@ qiime diversity alpha-rarefaction \
 ```
 Looking at this alpha rarefaction curve, it appears that 14,000 reads is a decent rarefaction threshold to start at.
 # Core metrics
-## Core metrics Slurm script (--p-max-depth 14000)
+## Core metrics Slurm script (--p-sampling-depth 14000)
 ```
+#!/bin/bash
+#SBATCH --job-name=core_metrics
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --partition=amilan
+#SBATCH --time=02:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=sarah.spotten@colostate.edu
 
+# Activate QIIME2
+module purge
+module load qiime2/2024.10_amplicon
+
+# Change directory
+cd /scratch/alpine/$USER/aneq505/drought_soils
 
 qiime diversity core-metrics-phylogenetic \
---i-table dada2/cow_table_dada2_filtered300.qza \
+--i-table dada2/table_nomitochloro_nocontrol.qza \
 --i-phylogeny tree/tree_gg2.qza \
---m-metadata-file metadata/cow_metadata.txt \
---p-sampling-depth 1500 \
+--m-metadata-file metadata/metadata.tsv \
+--p-sampling-depth 14000 \
 --output-dir core_metrics_results
+
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results/observed_features_vector.qza \
+--m-metadata-file metadata/metadata.tsv \
+--o-visualization core_metrics_results/observed_features_statistics.qzv
+
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results/faith_pd_vector.qza \
+--m-metadata-file metadata/metadata.tsv \
+--o-visualization core_metrics_results/faiths_pd_statistics.qzv
+```
+## Run Slurm script
+```
+sbatch core_metrics.sh
 ```
