@@ -274,6 +274,6 @@ cd alpha_rarefaction
 qiime diversity alpha-rarefaction \
 --i-table ../dada2/table_nomitochloro_nocontrol.qza \
 --m-metadata-file ../metadata/metadata.tsv \
---p-max-depth 75000 \
+--p-max-depth 35000 \
 --o-visualization alpha_rarefaction_curves.qzv
 ```
