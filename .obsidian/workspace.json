@@ -78,7 +78,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -239,7 +239,7 @@
       "bases:Create new base": false
     }
   },
-  "active": "a09db952cd93fd70",
+  "active": "f8b140b5a8c0c497",
   "lastOpenFiles": [
     "01_homework/homework_4_mac.md",
     "02_class_project/Workflow.md",
