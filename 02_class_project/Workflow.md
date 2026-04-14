@@ -225,7 +225,7 @@ cd ../tree
 
 wget https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-reference.qza
 ```
-## Tree Slurm script
+## Phylogenetic tree Slurm script
 ```
 #!/bin/bash
 #SBATCH --job-name=sepp_tree
@@ -253,7 +253,16 @@ qiime fragment-insertion sepp \
 --o-placements tree_gg2_placements.qza \
 --p-threads 24
 ```
-Run Slurm script
+## Run Slurm script
 ```
 sbatch sepp_tree.sh
+```
+# Rarefaction
+## Filter lab controls from samples
+```
+qiime feature-table filter-samples \
+--i-table dada2/table_nomitochloro_gg2_filtered300.qza \
+--m-metadata-file metadata/metadata.txt \
+--p-where "NOT [Treatment] IN ('Lab Control') " \
+--o-filtered-table dada2/table_nomitochloro_nocontrol.qza
 ```
