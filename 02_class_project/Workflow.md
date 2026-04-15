@@ -294,7 +294,7 @@ Looking at this alpha rarefaction curve, it appears that 14,000 reads is a decen
 
 # Activate QIIME2
 module purge
-module load qiime2/2024.10_amplicon
+module load qiime2/2026.1_amplicon
 
 # Change directory
 cd /scratch/alpine/$USER/aneq505/drought_soils
@@ -319,4 +319,25 @@ qiime diversity alpha-group-significance \
 ## Run Slurm script
 ```
 sbatch core_metrics.sh
+```
+# Differential abundance analysis
+Note that ANCOM-BC2 is only available in versions of QIIME2 from 2026 onward.
+```
+#!/bin/bash
+#SBATCH --job-name=ancombc2
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --partition=amilan
+#SBATCH --time=02:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=sarah.spotten@colostate.edu
+
+# Activate QIIME2
+module purge
+module load qiime2/2024.10_amplicon
+
+# Change directory
+cd /scratch/alpine/$USER/aneq505/drought_soils
 ```
