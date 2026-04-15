@@ -294,7 +294,7 @@ Looking at this alpha rarefaction curve, it appears that 14,000 reads is a decen
 
 # Activate QIIME2
 module purge
-module load qiime2/2026.1_amplicon
+module load qiime2/2024.10_amplicon
 
 # Change directory
 cd /scratch/alpine/$USER/aneq505/drought_soils
@@ -322,6 +322,7 @@ sbatch core_metrics.sh
 ```
 # Differential abundance analysis
 Note that ANCOM-BC2 is only available in versions of QIIME2 from 2026 onward.
+Make a new directory called `ancombc2` in the `drought_soils` folder.
 ```
 #!/bin/bash
 #SBATCH --job-name=ancombc2
@@ -336,8 +337,48 @@ Note that ANCOM-BC2 is only available in versions of QIIME2 from 2026 onward.
 
 # Activate QIIME2
 module purge
-module load qiime2/2024.10_amplicon
+module load qiime2/2026.1_amplicon
 
 # Change directory
-cd /scratch/alpine/$USER/aneq505/drought_soils
+cd /scratch/alpine/$USER/aneq505/drought_soils/ancombc2
+
+# Filter to same depth as alpha rarefaction
+qiime feature-table filter-samples \
+--i-table ../dada2/table_nomitochloro_nocontrol.qza \
+--p-min-frequency 14000 \
+--o-filtered-table table_14k.qza
+
+# Filter out low abundance and low prevalence ASVs
+qiime feature-table filter-features \
+--i-table table_14k.qza \
+--p-min-frequency 50 \
+--p-min-samples 20 \
+--o-filtered-table table_14k_abund.qza
+
+# Collapse features to species level
+qiime taxa collapse \
+--i-table table_14k_abund.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2_filtered300.qza \
+--p-level 7 \
+--o-collapsed-table table_14k_abund_l7.qza
+
+# Run ANCOM-BC2
+qiime composition ancombc2 \
+--i-table table_14k_abund_l7.qza \
+--m-metadata-file ../metadata/metadata.tsv \
+--p-fixed-effects-formula Treatment \
+--o-ancombc2-output ancombc2_results_treatment_l7.qza
+
+# Visualize ANCOM-BC2 results
+qiime composition tabulate \
+--i-data ancombc2_results_treatment_l7.qza \
+--o-visualization ancombc2_results_treatment_l7.qzv
+  
+qiime composition ancombc2-visualizer \
+  --i-data ancombc2_results_treatment_l7.qza \
+  --o-visualization ancombc2_barplot_treatment_l7.qzv
+```
+## Run Slurm script
+```
+sbatch ancombc2.sh
 ```
