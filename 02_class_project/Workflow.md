@@ -359,26 +359,27 @@ qiime feature-table filter-features \
 qiime taxa collapse \
 --i-table table_14k_abund.qza \
 --i-taxonomy ../taxonomy/taxonomy_gg2_filtered300.qza \
---p-level 7 \
---o-collapsed-table table_14k_abund_l7.qza
+--p-level 3 \
+--o-collapsed-table table_14k_abund_l3.qza
 
 # Run ANCOM-BC2
 qiime composition ancombc2 \
---i-table table_14k_abund_l7.qza \
+--i-table table_14k_abund_l3.qza \
 --m-metadata-file ../metadata/metadata.tsv \
 --p-fixed-effects-formula Treatment \
---o-ancombc2-output ancombc2_results_treatment_l7.qza
+--o-ancombc2-output ancombc2_results_treatment_l3.qza
 
 # Visualize ANCOM-BC2 results
 qiime composition tabulate \
---i-data ancombc2_results_treatment_l7.qza \
---o-visualization ancombc2_results_treatment_l7.qzv
+--i-data ancombc2_results_treatment_l3.qza \
+--o-visualization ancombc2_results_treatment_l3.qzv
   
 qiime composition ancombc2-visualizer \
-  --i-data ancombc2_results_treatment_l7.qza \
-  --o-visualization ancombc2_barplot_treatment_l7.qzv
+  --i-data ancombc2_results_treatment_l3.qza \
+  --o-visualization ancombc2_barplot_treatment_l3.qzv
 ```
 ## Run Slurm script
 ```
 sbatch ancombc2.sh
 ```
+I ran this first at taxonomic level 7 (species level), and it didn't show any taxa significantly differing in their abundance. Chance suggested to run it at level 3 (order), which is what they normally use in their soil microbiome studies.
