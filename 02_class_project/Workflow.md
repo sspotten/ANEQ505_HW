@@ -383,3 +383,20 @@ qiime composition ancombc2-visualizer \
 sbatch ancombc2.sh
 ```
 I ran this first at taxonomic level 7 (species level), and it didn't show any taxa significantly differing in their abundance. Chance suggested to run it at level 3 (order), which is what they normally use in their soil microbiome studies.
+```
+qiime composition ancombc2 \
+--i-table table_14k_abund_l3.qza \
+--m-metadata-file ../metadata/metadata.tsv \
+--p-fixed-effects-formula Treatment \
+--p-reference-levels Treatment::Drought \
+--o-ancombc2-output ancombc2_results_treatment_l3_drought_ref.qza
+
+# Visualize ANCOM-BC2 results
+qiime composition tabulate \
+--i-data ancombc2_results_treatment_l3_drought_ref.qza \
+--o-visualization ancombc2_results_treatment_l3_drought_ref.qzv
+  
+qiime composition ancombc2-visualizer \
+--i-data ancombc2_results_treatment_l3_drought_ref.qza \
+--o-visualization ancombc2_barplot_treatment_l3_drought_ref.qzv
+```
