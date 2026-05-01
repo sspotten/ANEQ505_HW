@@ -418,3 +418,9 @@ qiime diversity beta-group-significance \
 --m-metadata-file metadata/cow_metadata.txt \
 --m-metadata-column body_site \
 --o-visualization core_metrics_results/bray_curtis_distance_matrix.qzv
+
+# Filter feature tables to dates of interest for separate PERMANOVAs
+```
+ssh c829737140@colostate.edu@login.rc.colorado.edu
+```
+pw: pw,duo_key
