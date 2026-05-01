@@ -428,9 +428,3 @@ qiime feature-table filter-samples \
 --p-where "[Sample_Date]='20250708'" \
 --o-filtered-table ../dada2/table_20250708.qza
 ```
-
-# SSH into Alpine (need to be on CSU VPN via Global Protect)
-```
-ssh c829737140@colostate.edu@login.rc.colorado.edu
-```
-pw: pw,duo_key
