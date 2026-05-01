@@ -400,10 +400,10 @@ qiime composition ancombc2-visualizer \
 --i-data ancombc2_results_treatment_l3_drought_ref.qza \
 --o-visualization ancombc2_barplot_treatment_l3_drought_ref.qzv
 ```
-
+# PERMANOVA example commands
 #insert command for running the test you suggest from question 7
 
-# Unweighted UniFrac PERMANOVA:
+## Unweighted UniFrac PERMANOVA:
 qiime diversity beta-group-significance \
 --i-distance-matrix core_metrics_results/unweighted_unifrac_distance_matrix.qza \
 --m-metadata-file metadata/cow_metadata.txt \
@@ -412,7 +412,7 @@ qiime diversity beta-group-significance \
 --p-pairwise \
 --o-visualization core_metrics_results/unweighted_unifrac_distance_matrix.qzv
 
-# Bray-Curtis PERMANOVA:
+## Bray-Curtis PERMANOVA:
 qiime diversity beta-group-significance \
 --i-distance-matrix core_metrics_results/bray_curtis_distance_matrix.qza \
 --m-metadata-file metadata/cow_metadata.txt \
