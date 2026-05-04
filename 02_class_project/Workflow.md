@@ -355,7 +355,7 @@ qiime feature-table filter-features \
 --p-min-samples 20 \
 --o-filtered-table table_14k_abund.qza
 
-# Collapse features to species level
+# Collapse features to order level
 qiime taxa collapse \
 --i-table table_14k_abund.qza \
 --i-taxonomy ../taxonomy/taxonomy_gg2_filtered300.qza \
