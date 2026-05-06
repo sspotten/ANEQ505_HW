@@ -419,14 +419,25 @@ qiime diversity beta-group-significance \
 --m-metadata-column body_site \
 --o-visualization core_metrics_results/bray_curtis_distance_matrix.qzv
 
-# Filter feature tables to dates of interest for separate PERMANOVAs
+# Filter feature table to dates of interest for accurate taxa bar plots
 ```
 # Filter out June dates
 qiime feature-table filter-samples \
 --i-table table_nomitochloro_nocontrol.qza \
 --m-metadata-file ../metadata/metadata.tsv \
---p-where '[Sample_Date] IN ("20250708", "20250714", "20250812") \
+--p-where '[Sample_Date] IN ("20250708", "20250714", "20250812")' \
 --o-filtered-table table_jul_aug.qza
 
+# Generate table visualization to check for correctness
+qiime feature-table summarize \
+--i-table table_jul_aug.qza \
+--m-sample-metadata-file ../metadata/metadata.tsv \
+--o-visualization table_jul_aug.qzv
+
 # Taxa bar plots
+qiime taxa barplot \
+--i-table ../dada2/table_jul_aug.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2_filtered300.qza \
+--m-metadata-file ../metadata/metadata.tsv \
+--o-visualization taxa_barplot_jul_aug.qzv
 ```
