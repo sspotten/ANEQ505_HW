@@ -421,10 +421,12 @@ qiime diversity beta-group-significance \
 
 # Filter feature tables to dates of interest for separate PERMANOVAs
 ```
-# July 8
+# Filter out June dates
 qiime feature-table filter-samples \
 --i-table table_nomitochloro_nocontrol.qza \
 --m-metadata-file ../metadata/metadata.tsv \
---p-where "[Sample_Date]='20250708'" \
---o-filtered-table ../dada2/table_20250708.qza
+--p-where '[Sample_Date] IN ("20250708", "20250714", "20250812") \
+--o-filtered-table table_jul_aug.qza
+
+# Taxa bar plots
 ```
